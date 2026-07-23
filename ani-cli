@@ -304,7 +304,7 @@ search_by_genre() {
 search_anidb() {
     _query="$(printf '%s' "$1" | sed 's/ /+/g')"
     _page="$(curl -sL "https://anidb.app/search/suggestions?q=${_query}" -A "$agent" --max-time 10 | tr '\n' ' ' | sed 's/<a href/\n<a href/g')"
-    printf '%s' "$_page" | sed -n '2p' | sed -nE 's|.*anime/[a-z0-9-]+-([0-9]+)".*alt="([^"]+)".*|\1\t\2|p'
+    printf '%s' "$_page" | sed -nE 's|.*anime/[a-z0-9-]+-([0-9]+)".*alt="([^"]+)".*|\1\t\2|p'
 }
 
 episodes_list_anidb() {
