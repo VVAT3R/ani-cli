@@ -345,8 +345,11 @@ get_episode_url() {
 
     # try anidb.app
     if [ -z "$links" ]; then
-        _anidb_result="$(search_anidb "$_search_name")"
-        _anidb_id="$(printf '%s' "$_anidb_result" | cut -f1)"
+        _anidb_id="${id:-}"
+        if [ -z "$_anidb_id" ]; then
+            _anidb_result="$(search_anidb "$_search_name")"
+            _anidb_id="$(printf '%s' "$_anidb_result" | cut -f1)"
+        fi
         if [ -n "$_anidb_id" ]; then
             _m3u8="$(get_anidb_m3u8 "$_anidb_id" "$ep_no")"
             if [ -n "$_m3u8" ]; then
